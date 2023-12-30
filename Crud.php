@@ -72,7 +72,7 @@
            
 
             <label for="precio">Ingrese los precio</label>
-            <input type="number" name="precio" id="precio" class="form-control">
+            <input type="text" name="precio" id="precio" class="form-control">
             <br />
 
            

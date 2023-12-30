@@ -30,7 +30,7 @@ $(document).ready(function () {
 
                                 <div class="card-body">
                                     <p class="card-title"><strong>Producto:</strong> ${item.marca}</p>
-                                    <p class="card-text"><strong>Precio:</strong> S/${item.precio}</p>
+                                    <p class="card-text"><strong>Precio:</strong> ${item.precio}</p>
                                     <a href="index.php?modulo=detalleproducto&id=${item.id}" class="btn btn-primary botonV">Ver más</a>
                                 </div>
                                 <div class="swiper-button-prev"></div>

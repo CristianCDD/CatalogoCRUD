@@ -26,7 +26,7 @@ if ($_POST["operacion"] == "Crear") {
         $rutaImagen = "../../upload/" . $nombreArchivo;
 
         $direcSystem = "./upload/" . $imagen; // Cambiar según tus necesidades
-        $direcWeb = "http://localhost/catalogo/upload/" . $imagen; // Cambiar según tus necesidades
+        $direcWeb = "http://localhost/CatalogoDamian/upload/" . $imagen; // Cambiar según tus necesidades
 
         move_uploaded_file($archivoTempPath, $rutaImagen);
     }
@@ -52,7 +52,7 @@ if ($_POST["operacion"] == "Crear") {
         $rutaImagen2 = "../../upload/" . $nombreArchivo2;
 
         $direcSystem2 = "./upload/" . $imagen2; // Cambiar según tus necesidades
-        $direcWeb2 = "http://localhost/catalogo/upload/" . $imagen2; // Cambiar según tus necesidades
+        $direcWeb2 = "http://localhost/CatalogoDamian/upload/" . $imagen2; // Cambiar según tus necesidades
 
         move_uploaded_file($archivoTempPath2, $rutaImagen2);
     }
@@ -60,7 +60,7 @@ if ($_POST["operacion"] == "Crear") {
     // Utiliza sentencias preparadas para evitar SQL Injection
     $sql = "INSERT INTO productos (marca, precio) VALUES (?, ?)";
     $stmt = $con->prepare($sql);
-    $stmt->bind_param("sd", $_POST["marca"], $_POST["precio"]);
+    $stmt->bind_param("ss", $_POST["marca"], $_POST["precio"]);
     $resultado = $stmt->execute();
 
     $sql2 = "INSERT INTO files (filename, web_path, system_path) VALUES (?, ?, ?)";
@@ -131,7 +131,7 @@ if ($_POST["operacion"] == "Editar") {
   
       echo $imagen; */
   
-      if($_FILES["imagen_usuario"]["name"] != ""){
+     /*  if($_FILES["imagen_usuario"]["name"] != ""){
           $nombreArchivo = $_FILES["imagen_usuario"]["name"];
           $imagen = $nombreArchivo;
       }else{
@@ -139,26 +139,21 @@ if ($_POST["operacion"] == "Editar") {
       }
   
       $rutaImagen = "../../upload/" . $imagen;
-      $direcWeb = "http://localhost/catalogo/upload/" . $imagen;
-      move_uploaded_file($_FILES["imagen_usuario"]["tmp_name"], $rutaImagen);
+      $direcWeb = "http://localhost/CatalogoDamian/upload/" . $imagen;
+      move_uploaded_file($_FILES["imagen_usuario"]["tmp_name"], $rutaImagen); */
   
       $sql = "UPDATE productos
-          INNER JOIN productos_files ON productos.id = productos_files.producto_id
-          INNER JOIN files ON files.id = productos_files.file_id
-          SET productos.marca = ?,
-              productos.precio = ?,
-  
-  
-              files.filename = ?,
-              files.web_path = ?,
-              files.system_path = ?
-  
-          WHERE productos.id = ?";
-  
+      INNER JOIN productos_files ON productos.id = productos_files.producto_id
+      INNER JOIN files ON files.id = productos_files.file_id
+      SET productos.marca = ?,
+          productos.precio = ?
+      WHERE productos.id = ?";
+
+
   $stmt = $con->prepare($sql);
-  $valorSystemPath = "/catalogo/upload/" . $imagen;
+ /*  $valorSystemPath = "/CatalogoDamian/upload/" . $imagen; */
   if ($stmt) {
-      $stmt->bind_param("sdsssi", $_POST["marca"], $_POST["precio"], $imagen, $valorSystemPath, $direcWeb,  $_POST["id_usuario"]);
+    $stmt->bind_param("ssi", $_POST["marca"], $_POST["precio"],  $_POST["id_usuario"]);
       $resultado = $stmt->execute();
   
       if ($resultado) {

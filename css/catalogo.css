@@ -63,7 +63,9 @@ body {
 
 .col-12{
     /* padding-left: 90px; */
-    padding-left: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .row.mt-1.resultado{
     align-items: center;
